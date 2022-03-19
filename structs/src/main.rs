@@ -41,4 +41,5 @@ fn main() {
     println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
 
     println!("Example square: {:?}", dbg!(Rectangle::square(25)));
+    println!("Example area: {}", rect1.area());
 }
