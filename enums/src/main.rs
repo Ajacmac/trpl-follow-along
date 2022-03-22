@@ -16,6 +16,14 @@ impl Message {
     }
 }
 
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter,
+    Loonie,
+}
+
 fn main() {
 
     let home = IpAddr::V4(127, 0, 0, 1);
@@ -25,11 +33,27 @@ fn main() {
     let some_string = Some("a string");
 
     let absent_number: Option<i32> = None;
+
+    let money = Coin::Penny;
+    let value = value_in_cents(money);
 }
 
 fn check(optional: &Option<i32>) {
     match optional {
         Some(v) => println!("{}", v),
         None => println!("None!"),
+    }
+}
+
+fn value_in_cents(coin: Coin) -> u8 {
+    match coin {
+        Coin::Penny => {
+            println!("It's a penny");
+            1
+        }
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter => 25,
+        Coin::Loonie => 100,
     }
 }
