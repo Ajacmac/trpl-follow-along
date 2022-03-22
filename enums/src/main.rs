@@ -16,11 +16,26 @@ impl Message {
     }
 }
 
+#[derive(Debug)]
+enum Province {
+    Ns,
+    Nb,
+    Nfld,
+    Pei,
+    Ont,
+    Que,
+    Man,
+    Sas,
+    Alb,
+    Bc,
+    Nwt
+}
+
 enum Coin {
     Penny,
     Nickel,
     Dime,
-    Quarter,
+    Quarter(Province),
     Loonie,
 }
 
@@ -36,6 +51,9 @@ fn main() {
 
     let money = Coin::Penny;
     let value = value_in_cents(money);
+
+    let money2 = Coin::Quarter(Province::Ns);
+    let value2 = value_in_cents(money2);
 }
 
 fn check(optional: &Option<i32>) {
@@ -53,7 +71,10 @@ fn value_in_cents(coin: Coin) -> u8 {
         }
         Coin::Nickel => 5,
         Coin::Dime => 10,
-        Coin::Quarter => 25,
+        Coin::Quarter(province) => {
+            println!("The province is {:?}", province);
+            25
+        },
         Coin::Loonie => 100,
     }
 }
