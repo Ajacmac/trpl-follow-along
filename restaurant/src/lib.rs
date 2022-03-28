@@ -46,6 +46,11 @@ mod back_of_house {
 
 use self::front_of_house::hosting;
 
+// In rust the standard library is itself a crate
+// This provides the same use semantics and allows for nice, clean imports
+// This is both similar and different from something like a collection of C header files
+use std::collections::HashMap;
+
 pub fn eat_at_restaurant() {
     // Absolute path
     crate::front_of_house::hosting::add_to_waitlist();
