@@ -10,4 +10,14 @@ fn main() {
     let v2 = vec![1, 2, 3];
 
     v.push(1);
+
+    println!("{}", &v2[1]);
+    // it turns out that this method of access, because it returns an option
+    // cannot be used with the default formatter and instead requires debug
+    println!("{:?}", v2.get(2));
+
+    match v2.get(5) {
+        Some(value) => println!("{}", value),
+        None => println!("there's nothing there")
+    };
 }
