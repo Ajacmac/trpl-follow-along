@@ -1,3 +1,9 @@
+#[derive(Debug)]
+enum X {
+    Int(i32),
+    Float(f64),
+}
+
 fn main() {
     // Vectors are implemented using generics, so there has to be some
     // other indication of what type it is intended to contain, hence
@@ -20,4 +26,23 @@ fn main() {
         Some(value) => println!("{}", value),
         None => println!("there's nothing there")
     };
+
+    for i in 0..3 {
+        v.push(i);
+    }
+
+    for i in &mut v {
+        *i *= 40;
+    }
+
+    for i in &v {
+        println!("{}", i);
+    }
+
+    let poly_vec = vec![
+        X::Int(5),
+        X::Float(5.5),
+    ];
+
+    println!("{:?}, {:?}", poly_vec[0], poly_vec[1]);
 }
