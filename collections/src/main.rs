@@ -45,4 +45,23 @@ fn main() {
     ];
 
     println!("{:?}, {:?}", poly_vec[0], poly_vec[1]);
+
+    // In Rust there's really only one type of string in the core language, the 
+    // string slice. A string slice is a reference that points to some data stored 
+    // elsewhere.
+
+    // String literals are stored in the binary, and under the hood are treated 
+    // exactly the same as any other string slice
+
+    // Strings in Rust are implemented as byte collections, with the data itself
+    // being UTF-8 encoded
+
+    // String is owned
+    // str is borrowed
+
+    let mut s = String::new(); // owned string
+
+    let s2 = "example text".to_string(); // owned string
+
+    
 }
