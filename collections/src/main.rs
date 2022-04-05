@@ -76,4 +76,21 @@ fn main() {
 
     println!("{}", s);
     // println!("{}", s2); // errors because this memory was freed
+
+    let s3 = String::from("riddle");
+    let s4 = String::from("me");
+    let s5 = String::from("this");
+
+    // this format macro allows for pretty elegant string construction
+    // a particular advantage is that you that use {:?} for types that
+    // don't implement display, but do implement debug
+    let s6 = format!("{} {} {}", s3, s4, s5);
+
+    // chars() returns valid utf-8 characters, but that's not the same
+    // as a grapheme cluster, where a diacritic is added to a character
+    // to create a new character. Grapheme clusters will be split into
+    // their component pieces and printed separately.
+    for c in s6.chars() {
+        println!("{}", c);
+    }
 }
