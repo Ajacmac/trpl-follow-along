@@ -63,5 +63,17 @@ fn main() {
 
     let s2 = "example text".to_string(); // owned string
 
-    
+    s.push_str("test"); // push_str takes a string slice so ownership isn't taken
+    println!("{}", s);
+
+    // using the concatenation operator + would work, but that operator takes
+    // ownership of the value on the left, so the results can be confusing if 
+    // you aren't careful
+    // eg: s + &s2      in this case ownership of s gets passed into +
+    // note: simply using a str as the first argument isn't allowed, so won't work
+
+    s = s2 + &s;
+
+    println!("{}", s);
+    // println!("{}", s2); // errors because this memory was freed
 }
