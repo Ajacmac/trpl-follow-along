@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 #[derive(Debug)]
 enum X {
     Int(i32),
@@ -93,4 +95,97 @@ fn main() {
     for c in s6.chars() {
         println!("{}", c);
     }
+
+    // Hash maps are dictionaries, and allow you to access values with a
+    // key that can be any type, not just an int.
+
+    // within a hashmap, all of the keys must be the same type, and all
+    // the values must be the same type
+
+    // hashmaps are stored on the heap. they have to be since they must
+    // be able to support resizing, etc. once there are a certain number
+    // of hash collisions
+
+    let mut scores = HashMap::new();
+    scores.insert(String::from("Blue"), 10);
+    scores.insert(String::from("Yellow"), 50);
+
+    let a = String::from("a");
+    let b = String::from("b");
+
+    let mut map = HashMap::new();
+    map.insert(a, b);
+
+    println!("{:?}", map);
+    // println!("{}", a); // errors since inserting into the map passes ownership
+    if let Some(val) = map.get("a") { 
+        println!("the value is {}", val) 
+    }
+
+    match map.get("a") {
+        Some(val) => println!("{:?}", val),
+        None => println!("none"),
+    }
+
+    for (key, value) in &map {
+        println!("{}", value);
+    }
+
+    // blind overwrite of a value
+    map.insert(String::from("a"), String::from("c"));
+    println!("value after overwrite {}", map.get("a").unwrap());
+
+    // entering a new value only if one doesn't exist for the key
+    map.entry(String::from("b")).or_insert(String::from("b"));
+    // won't overwrite
+    // returns a mutable reference, either to the pre-existing value
+    // or the new value for the key, what we passed into or_insert()
+    map.entry(String::from("b")).or_insert(String::from("bad data"));
+
+    println!("{:?}", map);
+
+    // updating a value conditionally based on current value
+    // first cloning map because I need a mutable borrow here
+    // and there's already an immutable one above
+    let mut map2 = map.clone();
+    for item in &map {
+        let a = map2.entry(String::from("a")).or_insert(String::from("a"));
+        *a = format!("{}{}", a, String::from("a"));
+    }
+    println!("{:?}", map2);
+
+    // another similar kind of example showing math operations in place
+    let mut scores = HashMap::new();
+    scores.insert(String::from("Red"), 0);
+    scores.insert(String::from("Blue"), 0);
+
+    let red_score = scores.entry(String::from("Red")).or_insert(0);
+    *red_score += 1;
+
+
+    // pig latin example
+    let input = String::from("This is a sentence I want converted to pig latin");
+    let mut output = String::new();
+
+    // single quotes are for characters, double quotes
+    // won't work
+    let mut temp: char = ' ';
+
+    for word in input.split_whitespace() {
+        temp = ' ';
+        if word.len() > 1 {
+            for c in word.chars() {
+                if temp == ' ' {
+                    temp = c.to_ascii_lowercase();
+                } else {
+                    output += &format!("{}", c);
+                }
+            }
+            output += &format!("{}ay ", temp);
+        }
+    }
+
+    output = format!("{}{}", &output[..1].to_ascii_uppercase(), &output[1..]);
+
+    println!("{}", output);
 }
