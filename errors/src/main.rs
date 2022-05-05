@@ -14,6 +14,7 @@ use std::io::ErrorKind;
 fn main() {
     let f = File::open("hello.txt");
 
+    // error handling with nested match statements
     let f = match f {
         Ok(file) => file,
         Err(error) => match error.kind() {
@@ -24,4 +25,15 @@ fn main() {
             other_error => panic!("Problem opening the file {:?}", other_error)
         }
     };
+
+    // error handling using the _or_else method family
+    let f = File::open("hello.txt").unwrap_or_else(|error| {
+        if error.kind() == ErrorKind::NotFound {
+            File::create("hello.txt").unwrap_or_else(|error| {
+                panic!("Problem creating the file: {:?}", error);
+            })
+        } else {
+            panic!("Problem opening the file: {:?}", error);
+        }
+    });
 }
