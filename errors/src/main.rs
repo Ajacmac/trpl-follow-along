@@ -21,7 +21,7 @@ fn main() {
                 Ok(fc) => fc,
                 Err(e) => panic!("Error creating the file: {:?}", e),
             },
-            other_error => panic!("Prolem opening the file {:?}", other_error)
+            other_error => panic!("Problem opening the file {:?}", other_error)
         }
     };
 }
