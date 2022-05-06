@@ -36,4 +36,8 @@ fn main() {
             panic!("Problem opening the file: {:?}", error);
         }
     });
+
+    // using expect to automatically pass the contents of Ok or 
+    // panic with the provided message
+    let f = File::open("hello.txt").expect("Failed to open hello.txt");
 }
