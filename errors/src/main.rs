@@ -10,6 +10,7 @@
 
 use std::fs::File;
 use std::io::ErrorKind;
+use std::io::{self, Read};
 
 fn main() {
     let f = File::open("hello.txt");
@@ -39,5 +40,13 @@ fn main() {
 
     // using expect to automatically pass the contents of Ok or 
     // panic with the provided message
-    let f = File::open("hello.txt").expect("Failed to open hello.txt");
+    let mut f = File::open("hello.txt").expect("Failed to open hello.txt");
+
+
+    let mut s = String::new();
+
+    match f.read_to_string(&mut s) {
+        Ok(_) => Ok(s),
+        Err(e) => Err(e),
+    };
 }
