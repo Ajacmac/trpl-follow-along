@@ -50,13 +50,44 @@ fn read_username_from_file() -> Result<String, io::Error> {
 
     let mut f = match f {
         Ok(file) => file,
-        Err(e) => return Err(e),
+        Err(e) => return Err(e), // first potential return
     };
 
     let mut s = String::new();
 
     match f.read_to_string(&mut s) {
         Ok(_) => Ok(s),
-        Err(e) => Err(e),
+        Err(e) => Err(e), // second potential return
     }
+
+    // both potential error return values are the same type of error
+    // different error types as return values would need more careful
+    // handling in order to work
+    // the ? operator can avoid this problem since it automatically
+    // converts the passed in error value to the appropriate type
+    // of return value
+}
+
+// the ?'s here will either pass the value they receive or, if that
+// value is an error, will cause the function to return that value
+// providing a convenient way to handle error propagation
+// the ? operator tells the compiler to check the return type
+// of the containing function and the ? operator will convert
+// received error values if necessary so they'll match the error
+// return type
+fn concise_read_username_from_file() -> Result<String, io::Error> {
+    let mut f = File::open("hello.txt")?;
+    let mut s = String::new();
+    f.read_to_string(&mut s)?;
+    Ok(s)
+}
+
+// this example includes method chaining off ?
+// method chaining like this makes for very elegant code
+fn terse_read_username_from_file() -> Result<String, io::Error> {
+    let mut s = String::new();
+
+    File::open("hello.txt")?.read_to_string(&mut s)?;
+
+    Ok(s)
 }
