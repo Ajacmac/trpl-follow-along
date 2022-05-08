@@ -8,11 +8,12 @@
 // The alternative is to simply abort on panic, which instead
 // leaves all of the cleanup to the operating system to do.
 
+use std::error::Error;
 use std::fs::File;
 use std::io::ErrorKind;
 use std::io::{self, Read};
 
-fn main() {
+fn main() -> Result<(), Box<dyn Error>> {
     let f = File::open("hello.txt");
 
     // error handling with nested match statements
@@ -43,6 +44,8 @@ fn main() {
     let mut f = File::open("hello.txt").expect("Failed to open hello.txt");
 
     read_username_from_file();
+
+    Ok(())
 }
 
 fn read_username_from_file() -> Result<String, io::Error> {
