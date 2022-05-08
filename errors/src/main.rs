@@ -91,3 +91,19 @@ fn terse_read_username_from_file() -> Result<String, io::Error> {
 
     Ok(s)
 }
+
+// the ? can also be used on an Option(), not just a Result()
+// ? will not convert between Option and Result, so the return
+// type of the function needs to match the type ? is being given
+// you can, however, convert between Option and Result with ok()
+// and ok_or()
+
+fn last_char_of_first_line(text: &str) -> Option<char> {
+    text.lines().next()?.chars().last()
+
+    // this takes a &str, converts it to lines
+    // grabs the first line, which can be empty
+    // passes the option to ?
+    // which passes that to chars() if there is a line
+    // and finally last() will return the final character
+}
