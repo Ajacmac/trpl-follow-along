@@ -45,6 +45,8 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     read_username_from_file();
 
+    concise_read_username_from_file();
+
     Ok(())
 }
 
