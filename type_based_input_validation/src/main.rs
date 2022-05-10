@@ -17,17 +17,24 @@ impl Guess {
 }
 
 fn main() {
-    loop {
-        let guess: i32 = match guess.trim().parse() {
-            Ok(num) => num,
-            Err(_) => continue,
-        };
 
-        if guess < 1 || guess > 100 {
+    let guess = fetch_guess();
+
+    loop {
+
+        if guess.value == 80 {
             println!("The secret number will be bewteen 1 and 100.");
             continue;
+        } else {
+            let guess = fetch_guess();
         }
 
-        // check whether guess is correct
     }
+}
+
+fn fetch_guess() -> Guess {
+    let guess = Guess { value: 50 };
+
+
+    guess
 }
