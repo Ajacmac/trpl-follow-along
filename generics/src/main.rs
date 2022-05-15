@@ -1,11 +1,11 @@
-fn largest<T>(list: &[T]) -> T {
-    let mut largest = list[0];
+fn largest<T>(list: &[T]) -> &T {
+    let mut largest = &list[0];
 
-    for &item in list {
-        if item > largest {
-            largest = item;
-        }
-    }
+    // for &item in list {
+    //     if item > largest {
+    //         largest = item;
+    //     }
+    // }
 
     largest
 }
@@ -50,4 +50,15 @@ fn main() {
 
     let result = largest(&number_list);
     println!("The largest number is {}", result);
+
+
+
+    let article = NewsArticle {
+        headline: String::from("Penguins"),
+        location: String::from("Pittsburgh"),
+        author: String::from("Iceburgh"),
+        content: String::from("blah"),
+    };
+
+    println!("New: {}", article.summarize());
 }
