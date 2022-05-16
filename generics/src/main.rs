@@ -11,9 +11,9 @@ fn largest<T>(list: &[T]) -> &T {
 }
 
 pub trait Summary {
-    fn summarize_author(&self) -> String;
+    fn summarize_author(&self) -> String; // no default implementation
 
-    fn summarize(&self) -> String {
+    fn summarize(&self) -> String { // has a default implementation
         format!("(Read more from {}...)", self.summarize_author())
     }
 }
@@ -45,10 +45,6 @@ pub struct Tweet {
 impl Summary for Tweet {
     fn summarize_author(&self) -> String {
         format!("@{}", self.username)
-    }
-
-    fn summarize(&self) -> String {
-        format!("{}: {}", self.username, self.content)
     }
 }
 
